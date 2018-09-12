@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>inspire.js | presentation tool based on impress.js</title>
+    <meta name="description" content="inspire.js is a presentation tool based on impress.js" />
+    <meta name="author" content="Akira Hanashiro" />
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+    <link rel="shortcut icon" href="favicon.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="stylesheet" href="./styles.css" >
+    <script src="./scripts.js" ></script>
+</head>
+
+<body class="page-container">
+    <header class="main-header" >
+    	<i onclick="document.querySelector('.slides-list-item.selected').ondblclick()" class="fas fa-expand"></i>
+    	<!--i onclick="Controllers.active = '';" class="far fa-hand-paper controller-type " ></i-->
+    	<i onclick="Controllers.active = 'move';" class="fas fa-arrows-alt controller-type move" ></i>
+    	<i onclick="Controllers.active = 'rotate';" class="fas fa-sync-alt controller-type rotate" ></i>
+    	<i onclick="Controllers.active = 'scale';" class="fas fa-expand-arrows-alt controller-type scale" ></i>
+		<br>
+    	<i class="fas fa-download" ></i>
+    	<i class="fas fa-list" ></i>
+		<br>
+		<i onclick="History.undo();" class="fas fa-undo-alt" ></i>
+		<i onclick="History.redo();" class="fas fa-redo-alt" ></i>
+    </header>
+    <section id="list-container" class="column-1"></section>
+    <section class="view-container">
+    	<div class="view-controllers" >
+    		
+
+
+			<div class="input-controllers-container move" >
+				<input type="range" 
+	    		min="-1" 
+	    		max="1" 
+	    		step="0.1" 
+	    		value="0" 
+	    		onmousedown="Controllers.move.y(this, true)"
+	    		onmouseup="this.value = 0; Controllers.stopTimer();"
+
+	    		style="transform-origin: 75px 75px;transform: rotate(-90deg);">
+
+	    	<input type="range" 
+	    		min="-1" 
+	    		max="1" 
+	    		step="0.1" 
+	    		value="0" 
+	    		onmousedown="Controllers.move.x(this, true)"
+	    		onmouseup="this.value = 0; Controllers.stopTimer();"
+
+	    		style="transform-origin: 75px 75px;">
+
+    		<input type="range" 
+	    		min="-1" 
+	    		max="1" 
+	    		step="0.1" 
+	    		value="0" 
+	    		onmousedown="Controllers.move.z(this, true)"
+	    		onmouseup="this.value = 0; Controllers.stopTimer();"
+
+	    		style="transform-origin: 75px 75px;transform: rotate(-45deg);">
+			</div>
+			<div class="input-controllers-container rotate" >
+				<input type="range" 
+	    		min="-1" 
+	    		max="1" 
+	    		step="0.1" 
+	    		value="0" 
+	    		onmousedown="Controllers.rotate.x(this, true)"
+	    		onmouseup="this.value = 0; Controllers.stopTimer();"
+
+	    		style="transform-origin: 75px 75px;transform: rotate(-90deg);">
+
+	    	<input type="range" 
+	    		min="-1" 
+	    		max="1" 
+	    		step="0.1" 
+	    		value="0" 
+	    		onmousedown="Controllers.rotate.y(this, true)"
+	    		onmouseup="this.value = 0; Controllers.stopTimer();"
+
+	    		style="transform-origin: 75px 75px;">
+
+    		<input type="range" 
+	    		min="-1" 
+	    		max="1" 
+	    		step="0.1" 
+	    		value="0" 
+	    		onmousedown="Controllers.rotate.z(this, true)"
+	    		onmouseup="this.value = 0; Controllers.stopTimer();"
+
+	    		style="transform-origin: 75px 75px;transform: rotate(-45deg);">
+			</div>
+			<div class="input-controllers-container scale" >
+				<input type="range" 
+	    		min="-1" 
+	    		max="1" 
+	    		step="0.1" 
+	    		value="0" 
+	    		onmousedown="Controllers.scale(this, true)"
+	    		onmouseup="this.value = 0; Controllers.stopTimer();"
+
+	    		style="transform-origin: 75px 75px;transform: rotate(-90deg);">
+			</div>
+
+    	</div>
+    	<iframe name="InlineFrame1" style="width: 100%;height: 100%;" onload="setList()" src="./slides.html"></iframe>
+    </section>
+    <section class="column-2">
+        <div>
+        	<h1 class="controller-input-text-header" >Position</h1>
+        	x <input id="x-text-controller" class="controller-input-text" type="number" step="10" oninput="Controllers.move.x(this);Controllers.stopTimer()">
+        	y <input id="y-text-controller" class="controller-input-text" type="number" step="10" oninput="Controllers.move.y(this);Controllers.stopTimer()">
+        	z <input id="z-text-controller" class="controller-input-text" type="number" step="10" oninput="Controllers.move.z(this);Controllers.stopTimer()">
+        </div>
+        <div>
+        	<h1 class="controller-input-text-header" >Rotation</h1>
+        	x <input id="rx-text-controller" class="controller-input-text" type="number" step="1" oninput="Controllers.rotate.x(this);Controllers.stopTimer()">
+        	y <input id="ry-text-controller" class="controller-input-text" type="number" step="1" oninput="Controllers.rotate.y(this);Controllers.stopTimer()">
+        	z <input id="rz-text-controller" class="controller-input-text" type="number" step="1" oninput="Controllers.rotate.z(this);Controllers.stopTimer()">
+        </div>
+        <div>
+        	<h1 class="controller-input-text-header" >Scale</h1>
+        	<input id="scale-text-controller" class="controller-input-text" type="number" step="0.1"  oninput="Controllers.scale(this);Controllers.stopTimer()">
+        </div>
+    </section>
+    <footer class="main-footer" >
+    	<button onclick="copySlidesHTML()" >Copy to Clipboard</button>
+	</footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</body>
+</html>

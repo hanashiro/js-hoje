@@ -1,0 +1,72 @@
+.page-container{
+	display: grid;
+    grid-template-columns: 170px auto 200px;
+    grid-template-rows: 60px auto 60px;
+    grid-template-areas: 
+    	"header header header"
+    	"column-1 view-container column-2"
+    	"footer footer footer";
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+.main-header{
+	grid-area: header;
+}
+.controller-type{
+	cursor: pointer;
+	font-size: 20px;
+}
+.controller-type.is-active{
+	background-color: black;
+	color: white;
+}
+.column-1{
+	grid-area: column-1;	
+	overflow: auto;
+}
+.slides-list{
+    margin: 0;
+}
+.slides-list-item{
+	user-select: none;
+	cursor: pointer; 
+	margin: 10px 0;
+	color: #ccc;
+}
+.slides-list-item:hover{
+	text-decoration: underline;
+	color: darkblue;
+}
+.slides-list-item.selected{
+	color: #000;
+}
+.view-container{
+	grid-area: view-container;	
+	position: relative;
+}
+.view-controllers{
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+.input-controllers-container:not(.is-active){
+	display: none;
+}
+.column-2{
+	grid-area: column-2;	
+    padding: 0 10px;
+    overflow: auto;
+}
+.controller-input-text-header{
+	font-size: 18px;
+}
+.controller-input-text{
+    width: calc(100% - 25px);
+}
+.main-footer{
+	grid-area: footer;
+}
