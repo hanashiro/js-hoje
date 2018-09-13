@@ -5,6 +5,9 @@ body{
     background-position: center center;
 }
 
+.notes{
+    display: none;
+}
 .center-container{
     position: relative;
 }
